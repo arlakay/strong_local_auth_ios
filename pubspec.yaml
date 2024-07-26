@@ -20,8 +20,11 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ">=0.17.0 <0.19.0"
-  local_auth_platform_interface: ^1.0.1
-
+  local_auth_platform_interface: 
+    git:
+      url: https://github.com/arlakay/strong_local_auth_platform_interface.git
+      ref: main
+      
 dev_dependencies:
   build_runner: ^2.3.3
   flutter_test:

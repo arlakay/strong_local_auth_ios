@@ -16,7 +16,10 @@ dependencies:
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version.
     path: ../
-  local_auth_platform_interface: ^1.0.0
+  local_auth_platform_interface: 
+    git:
+      url: https://github.com/arlakay/strong_local_auth_platform_interface.git
+      ref: main
 
 dev_dependencies:
   flutter_test:
