@@ -55,18 +55,20 @@ enum AuthResult {
 }
 
 class AuthOptions {
-  AuthOptions(
-      {required this.biometricOnly,
-      required this.sticky,
-      required this.useErrorDialogs});
+  AuthOptions({
+    required this.biometricOnly,
+    required this.strongMode,
+    required this.sticky,
+    required this.useErrorDialogs,
+  });
   final bool biometricOnly;
+  final bool strongMode;
   final bool sticky;
   final bool useErrorDialogs;
 }
 
 class AuthResultDetails {
-  AuthResultDetails(
-      {required this.result, this.errorMessage, this.errorDetails});
+  AuthResultDetails({required this.result, this.errorMessage, this.errorDetails});
 
   /// The result of authenticating.
   final AuthResult result;

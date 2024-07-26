@@ -38,6 +38,7 @@ class LocalAuthIOS extends LocalAuthPlatform {
     final AuthResultDetails resultDetails = await _api.authenticate(
         AuthOptions(
             biometricOnly: options.biometricOnly,
+            strongMode: options.strongMode,
             sticky: options.stickyAuth,
             useErrorDialogs: options.useErrorDialogs),
         _pigeonStringsFromAuthMessages(localizedReason, authMessages));
@@ -53,19 +54,13 @@ class LocalAuthIOS extends LocalAuthPlatform {
         return false;
       case AuthResult.errorNotAvailable:
         throw PlatformException(
-            code: 'NotAvailable',
-            message: resultDetails.errorMessage,
-            details: resultDetails.errorDetails);
+            code: 'NotAvailable', message: resultDetails.errorMessage, details: resultDetails.errorDetails);
       case AuthResult.errorNotEnrolled:
         throw PlatformException(
-            code: 'NotEnrolled',
-            message: resultDetails.errorMessage,
-            details: resultDetails.errorDetails);
+            code: 'NotEnrolled', message: resultDetails.errorMessage, details: resultDetails.errorDetails);
       case AuthResult.errorPasscodeNotSet:
         throw PlatformException(
-            code: 'PasscodeNotSet',
-            message: resultDetails.errorMessage,
-            details: resultDetails.errorDetails);
+            code: 'PasscodeNotSet', message: resultDetails.errorMessage, details: resultDetails.errorDetails);
     }
   }
 
@@ -76,11 +71,8 @@ class LocalAuthIOS extends LocalAuthPlatform {
 
   @override
   Future<List<BiometricType>> getEnrolledBiometrics() async {
-    final List<AuthBiometricWrapper?> result =
-        await _api.getEnrolledBiometrics();
-    return result
-        .cast<AuthBiometricWrapper>()
-        .map((AuthBiometricWrapper entry) {
+    final List<AuthBiometricWrapper?> result = await _api.getEnrolledBiometrics();
+    return result.cast<AuthBiometricWrapper>().map((AuthBiometricWrapper entry) {
       switch (entry.value) {
         case AuthBiometric.face:
           return BiometricType.face;
@@ -97,8 +89,7 @@ class LocalAuthIOS extends LocalAuthPlatform {
   @override
   Future<bool> stopAuthentication() async => false;
 
-  AuthStrings _pigeonStringsFromAuthMessages(
-      String localizedReason, Iterable<AuthMessages> messagesList) {
+  AuthStrings _pigeonStringsFromAuthMessages(String localizedReason, Iterable<AuthMessages> messagesList) {
     IOSAuthMessages? messages;
     for (final AuthMessages entry in messagesList) {
       if (entry is IOSAuthMessages) {
@@ -110,8 +101,7 @@ class LocalAuthIOS extends LocalAuthPlatform {
       reason: localizedReason,
       lockOut: messages?.lockOut ?? iOSLockOut,
       goToSettingsButton: messages?.goToSettingsButton ?? goToSettings,
-      goToSettingsDescription:
-          messages?.goToSettingsDescription ?? iOSGoToSettingsDescription,
+      goToSettingsDescription: messages?.goToSettingsDescription ?? iOSGoToSettingsDescription,
       // TODO(stuartmorgan): The default's name is confusing here for legacy
       // reasons; this should be fixed as part of some future breaking change.
       cancelButton: messages?.cancelButton ?? iOSOkButton,

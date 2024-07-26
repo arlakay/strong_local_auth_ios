@@ -108,10 +108,11 @@ packages:
   local_auth_platform_interface:
     dependency: "direct main"
     description:
-      name: local_auth_platform_interface
-      sha256: "1b842ff177a7068442eae093b64abe3592f816afd2a533c0ebcdbe40f9d2075a"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: main
+      resolved-ref: "8f188ff0ee9ac3ae1c50c030a65ec5a1b21e2e64"
+      url: "https://github.com/arlakay/strong_local_auth_platform_interface.git"
+    source: git
     version: "1.0.10"
   matcher:
     dependency: transitive
